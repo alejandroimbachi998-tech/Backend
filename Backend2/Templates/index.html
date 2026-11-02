@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Backend2 · Inicio</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: #0a0a0a;
+    color: #e8e8e8;
+    min-height: 100vh;
+    padding: 30px 20px;
+    background-image:
+      linear-gradient(rgba(255,46,46,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,46,46,.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+  body::before {
+    content: ''; position: fixed; top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff2e2e, #ff6a00, #ff2e2e);
+    z-index: 100; box-shadow: 0 0 20px rgba(255,46,46,.6);
+  }
+  .container {
+    max-width: 1150px; margin: 0 auto;
+    background: #141414; border: 1px solid #2a2a2a;
+    border-left: 4px solid #ff2e2e;
+    padding: 40px 35px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.8);
+    animation: fadeUp .5s ease;
+    position: relative;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  nav { display: flex; gap: 0; margin-bottom: 35px;
+        border-bottom: 2px solid #2a2a2a; flex-wrap: wrap; }
+  nav a { text-decoration: none; padding: 14px 24px;
+          font-family: 'Oswald', sans-serif; font-weight: 600;
+          font-size: .9rem; letter-spacing: 2px; text-transform: uppercase;
+          color: #8a8a8a; border-bottom: 3px solid transparent;
+          margin-bottom: -2px; transition: all .2s ease; }
+  nav a:hover { color: #fff; border-bottom-color: #ff2e2e;
+                background: linear-gradient(180deg, transparent, rgba(255,46,46,.08)); }
+
+  /* HERO */
+  .hero { text-align: center; padding: 40px 20px 20px; }
+  .hero-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    background: #000;
+    border: 1px solid #ff2e2e;
+    color: #ff2e2e;
+    font-family: 'Oswald', sans-serif;
+    font-size: .75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(255,46,46,.3);
+  }
+  h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 3.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    line-height: 1;
+    color: #fff;
+    margin-bottom: 12px;
+    text-shadow: 0 0 30px rgba(255,46,46,.3);
+  }
+  h1 span {
+    color: #ff2e2e;
+    text-shadow: 0 0 30px rgba(255,46,46,.8);
+  }
+  .subtitle {
+    color: #8a8a8a;
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+  .divider {
+    width: 100px; height: 3px;
+    background: linear-gradient(90deg, transparent, #ff2e2e, transparent);
+    margin: 30px auto;
+  }
+
+  /* CARDS */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .card {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-top: 3px solid #ff2e2e;
+    padding: 40px 30px;
+    text-decoration: none;
+    color: #e8e8e8;
+    text-align: center;
+    transition: all .25s ease;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 100px; height: 100px;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 6px,
+      rgba(255,46,46,.05) 6px,
+      rgba(255,46,46,.05) 12px
+    );
+    pointer-events: none;
+  }
+  .card:hover {
+    background: #202020;
+    border-top-color: #ff6a00;
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(255,46,46,.2);
+  }
+  .card .icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 18px;
+    filter: grayscale(.3);
+    transition: transform .3s ease;
+  }
+  .card:hover .icon { transform: scale(1.15); filter: grayscale(0); }
+  .card h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .card:hover h3 { color: #ff2e2e; }
+  .card p {
+    color: #8a8a8a;
+    font-size: .9rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav>
+    <a href="/">Inicio</a>
+    <a href="/usuarios">Usuarios</a>
+    <a href="/proveedores">Proveedores</a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-tag">Sistema Operativo</div>
+    <h1>Backend<span>2</span></h1>
+    <div class="divider"></div>
+    <p class="subtitle">Gestión de Usuarios & Proveedores</p>
+  </div>
+
+  <div class="grid">
+    <a href="/usuarios" class="card">
+      <span class="icon">👤</span>
+      <h3>Usuarios</h3>
+      <p>Gestión de personal</p>
+    </a>
+    <a href="/proveedores" class="card">
+      <span class="icon">🏭</span>
+      <h3>Proveedores</h3>
+      <p>Control de empresas</p>
+    </a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Backend2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --panel: #141414;
+    --panel-2: #1c1c1c;
+    --line: #2a2a2a;
+    --text: #e8e8e8;
+    --dim: #8a8a8a;
+    --red: #ff2e2e;
+    --orange: #ff6a00;
+    --green: #2ecc71;
+  }
+
+  body {
+    font-family: 'Rajdhani', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 30px 20px;
+    position: relative;
+    overflow-x: hidden;
+    background-image:
+      linear-gradient(rgba(255,46,46,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,46,46,.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* franja diagonal superior */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--red), var(--orange), var(--red));
+    z-index: 100;
+    box-shadow: 0 0 20px rgba(255,46,46,.6);
+  }
+
+  /* ===== CONTENEDOR ===== */
+  .container {
+    max-width: 1150px;
+    margin: 0 auto;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--red);
+    border-radius: 4px;
+    padding: 35px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.8);
+    animation: fadeUp .5s ease;
+    position: relative;
+  }
+
+  .container::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 120px; height: 120px;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 8px,
+      rgba(255,46,46,.06) 8px,
+      rgba(255,46,46,.06) 16px
+    );
+    pointer-events: none;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    display: flex;
+    gap: 0;
+    margin-bottom: 30px;
+    padding-bottom: 0;
+    border-bottom: 2px solid var(--line);
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    text-decoration: none;
+    padding: 14px 24px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: .9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--dim);
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all .2s ease;
+    position: relative;
+  }
+
+  nav a:hover {
+    color: #fff;
+    border-bottom-color: var(--red);
+    background: linear-gradient(180deg, transparent, rgba(255,46,46,.08));
+  }
+
+  /* ===== TÍTULOS ===== */
+  h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    color: #fff;
+    position: relative;
+    padding-left: 18px;
+  }
+
+  h1::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 6px;
+    background: linear-gradient(180deg, var(--red), var(--orange));
+    box-shadow: 0 0 15px rgba(255,46,46,.7);
+  }
+
+  h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.05rem;
+    margin: 22px 0 15px;
+    color: var(--text);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h2::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--red);
+    box-shadow: 0 0 10px var(--red);
+    transform: rotate(45deg);
+  }
+
+  p { color: var(--dim); font-size: 1rem; letter-spacing: .5px; }
+
+  /* ===== TABLAS ===== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: .95rem;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+  }
+
+  th, td {
+    text-align: left;
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  th {
+    background: #000;
+    font-family: 'Oswald', sans-serif;
+    color: var(--red);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: .75rem;
+    letter-spacing: 2px;
+    border-bottom: 2px solid var(--red);
+  }
+
+  tbody tr {
+    transition: all .15s ease;
+    border-left: 3px solid transparent;
+  }
+
+  tbody tr:hover {
+    background: rgba(255,46,46,.04);
+    border-left-color: var(--red);
+  }
+
+  /* ===== BOTONES ===== */
+  .btn {
+    display: inline-block;
+    padding: 10px 18px;
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all .2s ease;
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  }
+
+  .btn-warning {
+    background: var(--orange);
+    color: #000;
+  }
+  .btn-warning:hover {
+    background: #ff8533;
+    box-shadow: 0 0 20px rgba(255,106,0,.6);
+    transform: translateY(-2px);
+  }
+
+  .btn-danger {
+    background: var(--red);
+    color: #fff;
+  }
+  .btn-danger:hover {
+    background: #ff5555;
+    box-shadow: 0 0 20px rgba(255,46,46,.7);
+    transform: translateY(-2px);
+  }
+
+  .btn-success {
+    background: linear-gradient(135deg, #e62e2e, #b30000);
+    color: #fff;
+    padding: 12px 28px;
+    font-size: .85rem;
+    box-shadow: 0 0 25px rgba(255,46,46,.4);
+  }
+  .btn-success:hover {
+    background: linear-gradient(135deg, #ff3a3a, #d40000);
+    box-shadow: 0 0 35px rgba(255,46,46,.8);
+    transform: translateY(-2px);
+  }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--red);
+    padding: 22px;
+    margin-bottom: 25px;
+    transition: all .25s ease;
+  }
+
+  .card:hover {
+    border-top-color: var(--orange);
+    box-shadow: 0 0 30px rgba(255,46,46,.1);
+  }
+
+  /* ===== FORMULARIOS ===== */
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  input, select {
+    padding: 12px 14px;
+    background: #000;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--red);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: .5px;
+    width: 100%;
+    transition: all .2s ease;
+  }
+
+  input::placeholder { color: #555; text-transform: uppercase; font-size: .85rem; letter-spacing: 1px; }
+
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--red);
+    border-left-color: var(--orange);
+    background: #0f0f0f;
+    box-shadow: 0 0 0 3px rgba(255,46,46,.15);
+  }
+
+  /* ===== FLASH ===== */
+  .flash {
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: .9rem;
+    background: rgba(46,204,113,.1);
+    color: var(--green);
+    border-left: 4px solid var(--green);
+    animation: slideIn .4s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .empty {
+    text-align: center;
+    padding: 40px;
+    color: var(--dim);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: .9rem;
+  }
+
+  /* ===== SCROLL ===== */
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: #000; }
+  ::-webkit-scrollbar-thumb {
+    background: var(--red);
+    border-radius: 0;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav>
+    <a href="/">Inicio</a>
+    <a href="/usuarios">Usuarios</a>
+    <a href="/proveedores">Proveedores</a>
+  </nav>
+  {{mensaje}}
+  {{contenido}}
+</div>
+</body>
+</html>

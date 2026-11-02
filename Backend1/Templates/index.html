@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de usuarios</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #e0e7ff, #f5f3ff, #dbeafe);
+            color: #1e293b;
+            min-height: 100vh;
+            padding: 35px 18px;
+        }
+
+        .contenedor {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .encabezado {
+            background: linear-gradient(135deg, #312e81, #4f46e5);
+            color: white;
+            padding: 30px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 12px 30px rgba(49, 46, 129, 0.20);
+        }
+
+        .encabezado h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .encabezado p {
+            color: #e0e7ff;
+            font-size: 15px;
+        }
+
+        .panel {
+            background: white;
+            padding: 28px;
+            margin-bottom: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+        }
+
+        h2 {
+            color: #312e81;
+            margin-bottom: 22px;
+            font-size: 22px;
+        }
+
+        .formulario {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .campo label {
+            font-weight: 600;
+            color: #334155;
+            font-size: 14px;
+        }
+
+        .campo input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .campo input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        .acciones-formulario {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .boton {
+            display: inline-block;
+            border: none;
+            border-radius: 9px;
+            padding: 12px 18px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .boton:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(15, 23, 42, 0.15);
+        }
+
+        .primario {
+            background: linear-gradient(135deg, #4f46e5, #6366f1);
+        }
+
+        .secundario {
+            background: #64748b;
+        }
+
+        .editar {
+            background: #2563eb;
+            padding: 8px 12px;
+        }
+
+        .eliminar {
+            background: #dc2626;
+            padding: 8px 12px;
+        }
+
+        .mensaje {
+            background: #ecfdf5;
+            color: #047857;
+            border-left: 5px solid #10b981;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 22px;
+            overflow-wrap: anywhere;
+        }
+
+        .tabla-contenedor {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 620px;
+        }
+
+        thead {
+            background: #eef2ff;
+        }
+
+        th {
+            color: #3730a3;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        th, td {
+            padding: 15px 13px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .acciones-tabla {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .pie {
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+            padding: 8px;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 18px 10px;
+            }
+
+            .encabezado {
+                padding: 22px;
+            }
+
+            .encabezado h1 {
+                font-size: 24px;
+            }
+
+            .panel {
+                padding: 18px;
+            }
+
+            .formulario {
+                grid-template-columns: 1fr;
+            }
+
+            .acciones-formulario {
+                grid-column: auto;
+            }
+
+            .boton {
+                padding: 11px 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="contenedor">
+
+        <header class="encabezado">
+            <h1>Gestión de usuarios</h1>
+            <p>Administra, consulta, actualiza y elimina usuarios fácilmente.</p>
+        </header>
+
+        <section class="panel">
+            <h2>Registrar o actualizar usuario</h2>
+
+            <div class="mensaje">
+                {{mensaje}}
+            </div>
+
+            <form method="POST" action="/" class="formulario">
+                <input type="hidden" name="accion" value="crear">
+                <input type="hidden" name="id" value="{{id}}">
+
+                <div class="campo">
+                    <label for="nombre">Nombre completo</label>
+                    <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        placeholder="Escribe el nombre"
+                        value="{{nombre}}"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="correo">Correo electrónico</label>
+                    <input
+                        type="email"
+                        id="correo"
+                        name="correo"
+                        placeholder="usuario@correo.com"
+                        value="{{correo}}"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="telefono">Teléfono</label>
+                    <input
+                        type="text"
+                        id="telefono"
+                        name="telefono"
+                        placeholder="Número de teléfono"
+                        value="{{telefono}}"
+                    >
+                </div>
+
+                <div class="acciones-formulario">
+                    <button type="submit" name="accion" value="crear" class="boton primario">
+                        Guardar usuario
+                    </button>
+
+                    <a href="/" class="boton secundario">
+                        Limpiar formulario
+                    </a>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2>Usuarios registrados</h2>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {{filas}}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="pie">
+            Aplicación CRUD de usuarios · Python y MySQL
+        </footer>
+
+    </main>
+</body>
+</html>
